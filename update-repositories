@@ -1,0 +1,17 @@
+#!/bin/bash
+
+path=$(pwd)
+repositories=$(find . -type d -not -path "./.git" -maxdepth 1 -mindepth 1)
+
+echo "Updating remote repositories…"
+echo
+
+i=0
+for repository in $repositories
+do
+	((i++))
+	echo "${i}) Updating \"${repository}\":"
+	(cd "${path}/${repository}" && git remote update --prune)
+	echo "Update complete"
+	echo
+done
